@@ -9,4 +9,10 @@ jspm_packages/
 # Optional npm cache directory
 .npm
 
-
+Apps/Musician/.idea/modules.xml
+Apps/Musician/.idea/jarRepositories.xml
+Apps/Musician/.idea/compiler.xml
+Apps/Musician/.idea/libraries/
+Apps/Musician/*.iws
+Apps/Musician/*.iml
+Apps/Musician/*.ipr
