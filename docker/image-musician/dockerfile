@@ -1,5 +1,6 @@
-FROM alpine:latest
-RUN apk add --no-cache openjdk21
-WORKDIR /app
-COPY musician-app/target/*.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM openjdk:21
+
+COPY Musician/target/Musician-1.0-SNAPSHOT-jar-with-dependencies.jar /app.jar
+
+EXPOSE 9904
+CMD ["java", "-jar", "/app.jar"]

@@ -1,5 +1,7 @@
-FROM alpine:latest
-RUN apk add --no-cache openjdk21
-WORKDIR /app
-COPY auditor-app/target/*.jar /app/app.jar
-CMD ["java", "-jar", "app.jar"]
+FROM openjdk:21
+
+COPY Auditor/target/Auditor-1.0-SNAPSHOT-jar-with-dependencies.jar /app.jar
+
+EXPOSE 2205
+EXPOSE 9904
+CMD ["java", "-jar", "/app.jar"]

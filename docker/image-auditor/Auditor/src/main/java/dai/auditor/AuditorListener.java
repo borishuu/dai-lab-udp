@@ -7,8 +7,10 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -46,7 +48,8 @@ public class AuditorListener {
                 String message = new String(packet.getData(), 0,
                         packet.getLength(), UTF_8);
 
-                MusicianData receivedMusician = mapper.readValue(message, MusicianData.class);
+                Gson gson = new Gson();
+                MusicianData receivedMusician = gson.fromJson(message, MusicianData.class);
                 LocalDateTime receiveTime = LocalDateTime.now();
 
                 boolean found = false;
@@ -61,6 +64,10 @@ public class AuditorListener {
                 if (!found)
                     musicians.add(new MusicianClientData(
                             receivedMusician.uuid, soundInstruments.get(receivedMusician.sound), receiveTime));
+
+                for (MusicianClientData musician : musicians) {
+                    System.out.println(musician.uuid + " " + musician.instrument + " " + musician.lastActivity);
+                }
             }
 
         } catch (Exception e) {
@@ -80,10 +87,12 @@ public class AuditorListener {
         ArrayList<MusicianClientData> activeMusicians = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
 
-        for (MusicianClientData musician : musicians) {
-            if (musician.lastActivity.plusSeconds(5).isAfter(now)) {
+        for (Iterator<MusicianClientData> iterator = musicians.iterator(); iterator.hasNext(); ) {
+            MusicianClientData musician = iterator.next();
+            if (musician.lastActivity.plusSeconds(5).isAfter(now))
                 activeMusicians.add(musician);
-            }
+            else
+                iterator.remove();
         }
 
         return activeMusicians;
