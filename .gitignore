@@ -16,3 +16,11 @@ Apps/Musician/.idea/libraries/
 Apps/Musician/*.iws
 Apps/Musician/*.iml
 Apps/Musician/*.ipr
+
+Apps/Auditor/.idea/modules.xml
+Apps/Auditor/.idea/jarRepositories.xml
+Apps/Auditor/.idea/compiler.xml
+Apps/Auditor/.idea/libraries/
+Apps/Auditor/*.iws
+Apps/Auditor/*.iml
+Apps/Auditor/*.ipr
